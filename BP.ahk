@@ -60,3 +60,35 @@ loop
 	Sleep 250
 }
 return
+
+Numpad1::
+	Send b
+		Sleep 100
+	;Sea Water
+	MouseMove, 305, 500
+	MouseClick
+		Sleep 100
+	;Fish 2
+	MouseMove, 817, 296
+	MouseClick
+		Sleep 100
+	;Use button
+	MouseMove, 2017, 1200
+	MouseClick
+return
+
+Numpad2::
+	Send b
+		Sleep 100
+	;Sea Fish
+	MouseMove, 305, 500
+	MouseClick
+		Sleep 100
+	;Fish 1
+	MouseMove, 596, 298
+	MouseClick
+		Sleep 100
+	;Use button
+	MouseMove, 2017, 1200
+	MouseClick
+return
