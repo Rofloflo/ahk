@@ -57,21 +57,21 @@ loop
 	If not on
 		break
 	MouseClick
-	Sleep 250
+	Sleep 200
 }
 return
 
 Numpad1::
 	Send b
-		Sleep 100
+		Sleep 150
 	;Sea Water
 	MouseMove, 305, 500
 	MouseClick
-		Sleep 100
+		Sleep 150
 	;Fish 2
 	MouseMove, 817, 296
 	MouseClick
-		Sleep 100
+		Sleep 150
 	;Use button
 	MouseMove, 2017, 1200
 	MouseClick
@@ -79,16 +79,17 @@ return
 
 Numpad2::
 	Send b
-		Sleep 100
+		Sleep 150
 	;Sea Fish
 	MouseMove, 305, 500
 	MouseClick
-		Sleep 100
+		Sleep 150
 	;Fish 1
 	MouseMove, 596, 298
 	MouseClick
-		Sleep 100
+		Sleep 150
 	;Use button
 	MouseMove, 2017, 1200
 	MouseClick
 return
+
