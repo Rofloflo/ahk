@@ -1,95 +1,39 @@
-﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
-; #Warn  ; Enable warnings to assist with detecting common errors.
-SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
-SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+#Requires AutoHotkey v2.0
+SendMode 'Input'
+;;;;;;;;;;;;;;;;;Gatherer
+on := False
 
-; Declare variables to use in the script
-; Track your hotkey toggle
-toggle	:= 0
-; Set what you want your minimum time to be
-minTime	:= 38000
-; Set what you want your maximum time to be
-maxTime	:= 39000
-return
-
-DetectHiddenWindows, On
-SetTitleMatchMode, 2
-; Assign a hotkey to toggle your function on and off
-
-
-F6::
-	; Toggle your variable
-	toggle := !toggle
-
-	; If toggle is on/1/true, start the ClickSub timer
-	if (toggle = 1)
-		SetTimer, ClickSub, -1
-	; If toggle is off/0/false, turn the ClickSub timer off
-	Else
-		SetTimer, ClickSub, Off
-return
-
-; Block of code you want to run each time
-ClickSub:
-	If WinExist ahk_exe BPSR_STEAM.exe
-	WinWait ahk_exe BPSR_STEAM.exe
-	WinActivate ahk_exe BPSR_STEAM.exe
-	Sleep 100
-		; Send your click event
-		Send {WheelDown}
-		Sleep 100
-		Send f
-		; Have AHK generate a random number between your min and max time
-		Random, randTime, % minTime, % maxTime
-		
-		; Use the random number to start a new timer
-		SetTimer, ClickSub, % -randTime
-		Sleep 100
-	Send !{Tab}
-return
-
-
-#MaxThreadsPerHotkey 2
-F7::
-on := !on
-loop
-{
-	If not on
-		break
-	MouseClick
-	Sleep 200
+F6:: {
+ Global on
+ If on := !on                                        ; Toggle a variable indicating whether to proceed
+  paste(), SoundBeep(1500)                           ; Start by sending a line feed
+ Else SetTimer(paste, 0), ToolTip(), SoundBeep(1000) ; If toggle is reset, then disable the timer
 }
-return
 
-Numpad1::
-	Send b
-		Sleep 150
-	;Sea Water
-	MouseMove, 305, 500
-	MouseClick
-		Sleep 150
-	;Fish 2
-	MouseMove, 817, 296
-	MouseClick
-		Sleep 150
-	;Use button
-	MouseMove, 2017, 1200
-	MouseClick
-return
+paste() {                                            ; Timed subroutine can also be called directly
+ 
+;;;;;;;;;;;Script here
+ If WinExist('ahk_exe BPSR_STEAM.exe')
+	WinActivate ('ahk_exe BPSR_STEAM.exe')
+ Sleep 100
+ Send '{WheelDown}'
+ Sleep 100
+ Send 'f'
+ Sleep 100
+ Send '!{Tab}'
+;;;;;;;;;;;Script below
+ 
+ If on {                                             ; If toggle is set,
+  SetTimer paste, -1 * wait := Random(38000, 39000)    ;  then call this function again after a random wait
+  ToolTip wait
+ }
+}
 
-Numpad2::
-	Send b
-		Sleep 150
-	;Sea Fish
-	MouseMove, 305, 500
-	MouseClick
-		Sleep 150
-	;Fish 1
-	MouseMove, 596, 298
-	MouseClick
-		Sleep 150
-	;Use button
-	MouseMove, 2017, 1200
-	MouseClick
-return
+;;;;;;;;;;;;;;;;;Autoclicker
 
+auto := False
+
+F7:: {
+ Static on := False
+ SetTimer () => Click(), 250 * on := !on	;Delay between clicks is in ms
+}
